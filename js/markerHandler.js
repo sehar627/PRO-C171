@@ -1,7 +1,8 @@
 var tableNumber = null;
 
 AFRAME.registerComponent("markerhandler", {
-  init: async function() {
+  init: async function () {
+
     if (tableNumber === null) {
       this.askTableNumber();
     }
@@ -18,9 +19,8 @@ AFRAME.registerComponent("markerhandler", {
     });
   },
 
-  askTableNumber: function() {
-    var iconUrl =
-      "https://raw.githubusercontent.com/whitehatjr/menu-card-app/main/hunger.png";
+  askTableNumber: function () {
+    var iconUrl = "https://raw.githubusercontent.com/whitehatjr/menu-card-app/main/hunger.png";
 
     swal({
       title: "Welcome to Hunger!!",
@@ -38,8 +38,8 @@ AFRAME.registerComponent("markerhandler", {
     });
   },
 
-  handleMarkerFound: function(dishes, markerId) {
-    // Getting todays day
+  handleMarkerFound: function (dishes, markerId) {
+    // Getting today's day
     var todaysDate = new Date();
     var todaysDay = todaysDate.getDay();
     // Sunday - Saturday : 0 - 6
@@ -53,7 +53,6 @@ AFRAME.registerComponent("markerhandler", {
       "saturday"
     ];
 
-    // Changing Model scale to initial scale
     var dish = dishes.filter(dish => dish.id === markerId)[0];
 
     if (dish.unavailable_days.includes(days[todaysDay])) {
@@ -65,6 +64,7 @@ AFRAME.registerComponent("markerhandler", {
         buttons: false
       });
     } else {
+      // Changing Model scale to initial scale
       var model = document.querySelector(`#model-${dish.id}`);
       model.setAttribute("position", dish.model_geometry.position);
       model.setAttribute("rotation", dish.model_geometry.rotation);
@@ -78,7 +78,7 @@ AFRAME.registerComponent("markerhandler", {
       var orderButtton = document.getElementById("order-button");
 
       // Handling Click Events
-      ratingButton.addEventListener("click", function() {
+      ratingButton.addEventListener("click", function () {
         swal({
           icon: "warning",
           title: "Rate Dish",
@@ -101,8 +101,8 @@ AFRAME.registerComponent("markerhandler", {
       });
     }
   },
-  handleOrder: function(tNumber, dish) {
-    // Reading currnt table order details
+  handleOrder: function (tNumber, dish) {
+    // Reading current table order details
     firebase
       .firestore()
       .collection("tables")
@@ -131,7 +131,7 @@ AFRAME.registerComponent("markerhandler", {
 
         details.total_bill += dish.price;
 
-        // Updating Db
+        // Updating DB
         firebase
           .firestore()
           .collection("tables")
@@ -140,7 +140,7 @@ AFRAME.registerComponent("markerhandler", {
       });
   },
 
-  getDishes: async function() {
+  getDishes: async function () {
     return await firebase
       .firestore()
       .collection("dishes")
@@ -149,7 +149,7 @@ AFRAME.registerComponent("markerhandler", {
         return snap.docs.map(doc => doc.data());
       });
   },
-  handleMarkerLost: function() {
+  handleMarkerLost: function () {
     // Changing button div visibility
     var buttonDiv = document.getElementById("button-div");
     buttonDiv.style.display = "none";
