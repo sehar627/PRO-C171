@@ -31,9 +31,9 @@ AFRAME.registerComponent("create-markers", {
         // Adding 3D model to scene
         var model = document.createElement("a-entity");
         model.setAttribute("id", `model-${dish.id}`);
-        model.setAttribute("position", dish.position);
-        model.setAttribute("rotation", dish.rotation);
-        model.setAttribute("scale", dish.scale);
+        model.setAttribute("position", dish.model_geometry.position);
+        model.setAttribute("rotation", dish.model_geometry.rotation);
+        model.setAttribute("scale", dish.model_geometry.scale);
         model.setAttribute("gltf-model", `url(${dish.model_url})`);
         model.setAttribute("gesture-handler", {});
         marker.appendChild(model);
