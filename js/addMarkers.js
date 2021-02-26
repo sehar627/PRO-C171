@@ -36,6 +36,7 @@ AFRAME.registerComponent("create-markers", {
         model.setAttribute("scale", dish.model_geometry.scale);
         model.setAttribute("gltf-model", `url(${dish.model_url})`);
         model.setAttribute("gesture-handler", {});
+        model.setAttribute("visible", false);
         marker.appendChild(model);
 
         // Ingredients Container
@@ -45,6 +46,7 @@ AFRAME.registerComponent("create-markers", {
         mainPlane.setAttribute("rotation", { x: -90, y: 0, z: 0 });
         mainPlane.setAttribute("width", 1.7);
         mainPlane.setAttribute("height", 1.5);
+        mainPlane.setAttribute("visible", false);
         marker.appendChild(mainPlane);
 
         // Dish title background plane
@@ -96,6 +98,7 @@ AFRAME.registerComponent("create-markers", {
         pricePlane.setAttribute("height", 0.8);
         pricePlane.setAttribute("position", { x: -1.3, y: 0, z: 0.3 });
         pricePlane.setAttribute("rotation", { x: -90, y: 0, z: 0 });
+        pricePlane.setAttribute("visible", false);
 
         //Price of the dish
         var price = document.createElement("a-entity");
@@ -110,6 +113,7 @@ AFRAME.registerComponent("create-markers", {
           value: `Only\n $${dish.price}`
         });
 
+      
         pricePlane.appendChild(price);
         marker.appendChild(pricePlane);
       }
