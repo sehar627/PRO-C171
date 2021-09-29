@@ -7,4 +7,4 @@ Application Flow:
 3. Add Table Number
 4. Take order for a particular table number by clicking on "ORDER NOW" button.
 
-Note: Reload the App if the pop to enter a table is not was closed before entering the table number. 
+Note: Reload the App if the pop to enter a table number was closed before entering the table number. 
