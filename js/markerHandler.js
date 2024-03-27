@@ -5,7 +5,7 @@ AFRAME.registerComponent("markerhandler", {
     
     //Get Table Number
     if (tableNumber === null) {
-      this.askTableNumber();
+      //call the function
     }
 
     //Get the dishes collection
@@ -25,21 +25,7 @@ AFRAME.registerComponent("markerhandler", {
   },
   askTableNumber: function () {
     var iconUrl = "https://raw.githubusercontent.com/whitehatjr/menu-card-app/main/hunger.png";
-    swal({
-      title: "Welcome to Hunger!!",
-      icon: iconUrl,
-      content: {
-        element: "input",
-        attributes: {
-          placeholder: "Type your table number",
-          type: "number",
-          min: 1
-        }
-      },
-      closeOnClickOutside: false,
-    }).then(inputValue => {
-      tableNumber = inputValue;
-    });
+    // add swal with input
   },
 
   handleMarkerFound: function (dishes, markerId) {
@@ -63,35 +49,7 @@ AFRAME.registerComponent("markerhandler", {
 
     //Check if the dish is available today
     if (dish.unavailable_days.includes(days[todaysDay])) {
-      swal({
-        icon: "warning",
-        title: dish.dish_name.toUpperCase(),
-        text: "This dish is not available today!!!",
-        timer: 2500,
-        buttons: false
-      });
-    } else {
-      //Changing Model scale to initial scale
-      var model = document.querySelector(`#model-${dish.id}`);
-      model.setAttribute("position", dish.model_geometry.position);
-      model.setAttribute("rotation", dish.model_geometry.rotation);
-      model.setAttribute("scale", dish.model_geometry.scale);
-
-      //Update UI conent VISIBILITY of AR scene(MODEL , INGREDIENTS & PRICE)      
-      model.setAttribute("visible", true);
-
-      var ingredientsContainer = document.querySelector(`#main-plane-${dish.id}`);
-      ingredientsContainer.setAttribute("visible", true);
-
-      var priceplane = document.querySelector(`#price-plane-${dish.id}`);
-      priceplane.setAttribute("visible", true)
-
-      //Changing button div visibility
-      var buttonDiv = document.getElementById("button-div");
-      buttonDiv.style.display = "flex";
-
-      var ratingButton = document.getElementById("rating-button");
-      var orderButtton = document.getElementById("order-button");
+      //write the code here
 
       if (tableNumber != null) {
         //Handling Click Events
@@ -108,26 +66,13 @@ AFRAME.registerComponent("markerhandler", {
           tableNumber <= 9 ? (tNumber = `T0${tableNumber}`) : `T${tableNumber}`;
           this.handleOrder(tNumber, dish);
 
-          swal({
-            icon: "https://i.imgur.com/4NZ6uLY.jpg",
-            title: "Thanks For Order !",
-            text: "Your order will serve soon on your table!",
-            timer: 2000,
-            buttons: false
-          });
-        });
+         //add swal
       }
     }
   },
   handleOrder: function (tNumber, dish) {
     // Reading current table order details
-    firebase
-      .firestore()
-      .collection("tables")
-      .doc(tNumber)
-      .get()
-      .then(doc => {
-        var details = doc.data();
+    //write firebase query
 
         if (details["current_orders"][dish.id]) {
           // Increasing Current Quantity
